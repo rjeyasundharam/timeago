@@ -1,0 +1,6 @@
+name: Time ago
+core: 8.x
+type: module
+package: custom
+description: Converts dynamic timetamps to a 'time ago' format using jQuery with graceful degredation.
+

@@ -1,0 +1,16 @@
+timeago.configform:
+  path: admin/config/timeago
+  defaults:
+    _form: Drupal\timeago\Form\TimeAgoForm
+    _title: 'Time ago Form'
+  requirements:
+    _permission: 'access content'
+
+timeago.timeagoreset:
+  path: 'admin/config/timeago-reset'
+  defaults:
+    _controller: '\Drupal\timeago\Controller\TimeAgoController::reset'
+    _title: 'TimeAgo Reset'
+  requirements:
+    _permission: 'access content'
+

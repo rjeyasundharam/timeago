@@ -1,0 +1,80 @@
+timeago.settings:
+  type: config_object
+  label: 'Timeago Settings'
+  mapping:
+    timeago_node:
+      type: text
+      label: 'Timeago Node'
+    timeago_comment:
+      type: text
+      label: 'Timeago Comment'
+    timeago_elem:
+      type: text
+      label: 'Timeago Elem'
+    timeago_js_refresh_millis:
+      type: integer
+      label: 'Refresh millis'
+    timeago_js_allow_future:
+      type: text
+      label: 'Allow Futrure'
+    timeago_js_locale_title:
+      type: text
+      label: 'Local Title'
+    timeago_js_auto_dispose:
+      type: text
+      label: 'Auto Dispose'
+    timeago_cutoff:
+      type: text
+      label: 'CUT OFF'
+    timeago_js_strings_prefix_ago:
+      type: text
+      label: 'Prefix ago'
+    timeago_js_strings_prefix_from_now:
+      type: text
+      label: 'Prefix from now'
+    timeago_js_strings_suffix_ago:
+      type: text
+      label: 'Suffix ago'
+    timeago_js_strings_suffix_from_now:
+      type: text
+      label: 'Suffix from now'
+    timeago_js_strings_second:
+      type: text
+      label: 'Second'
+    timeago_js_strings_seconds:
+      type: text
+      label: 'Seconds'
+    timeago_js_strings_minute:
+      type: text
+      label: 'Minute'
+    timeago_js_strings_minutes:
+      type: text
+      label: 'Minutes'
+    timeago_js_strings_hour:
+      type: text
+      label: 'Hour'
+    timeago_js_strings_hours:
+      type: text
+      label: 'Hours'
+    timeago_js_strings_day:
+      type: text
+      label: 'Day'
+    timeago_js_strings_days:
+      type: text
+      label: 'Days'
+    timeago_js_strings_month:
+      type: text
+      label: 'Month'
+    timeago_js_strings_months:
+      type: text
+      label: 'Months'
+    timeago_js_strings_year:
+      type: text
+      label: 'Year'
+    timeago_js_strings_years:
+      type: text
+      label: 'Years'
+    timeago_word_separator:
+      type: text
+      label: 'Word-Separator'
+    

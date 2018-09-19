@@ -1,0 +1,25 @@
+timeago_node: 1
+timeago_comment: 1
+timeago_elem: 'span'
+timeago_js_refresh_millis: '1000'
+timeago_js_allow_past: NULL
+timeago_js_allow_future: 1
+timeago_js_locale_title: 0
+timeago_cutoff: ''
+timeago_js_strings_prefix_ago: NULL
+timeago_js_strings_prefix_from_now: NULL
+timeago_js_strings_suffix_ago: ago
+timeago_js_strings_suffix_from_now: 'from now'
+timeago_js_strings_second: '%d second'
+timeago_js_strings_seconds: '%d seconds'
+timeago_js_strings_minute: '%d minute'
+timeago_js_strings_minutes: '%d minutes'
+timeago_js_strings_hour: '%d hour'
+timeago_js_strings_hours: '%d hours'
+timeago_js_strings_day: '%d day'
+timeago_js_strings_days: '%d days'
+timeago_js_strings_month: '%d month'
+timeago_js_strings_months: '%d months'
+timeago_js_strings_year: '%d year'
+timeago_js_strings_years: '%d years'
+timeago_word_separator: ' '

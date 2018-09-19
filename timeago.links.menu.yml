@@ -1,0 +1,6 @@
+timeago.admin:
+  title: 'Timeago'
+  description: Converts dynamic timestamps to a 'time ago' format using js with graceful degredation.
+  parent: system.admin_config
+  route_name: timeago.configform
+  weight: 100

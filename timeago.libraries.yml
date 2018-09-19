@@ -1,0 +1,7 @@
+timeago-js:
+  version: 1.x
+  js:
+    js/timeago.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

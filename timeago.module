@@ -1,0 +1,136 @@
+<?php
+
+
+use Symfony\Component\Yaml\Yaml;
+
+/**
+* Implements hook_preprocess_comment
+*/
+
+
+
+function timeago_preprocess_comment(&$variables) {
+  $d = $variables['comment']->getCreatedTime();
+  $datecontent = \Drupal::service('date.formatter')->formatInterval(REQUEST_TIME - $d);
+  $date = date("Y-m-d h:i:s A", $d);
+  $config = \Drupal::config('timeago.settings');
+  $elem=$config->get('timeago_elem');
+  if($config->get('timeago_comment')){
+    if ($elem == 'time') {
+      $variables['created'] =t('<time class="timeago" datetime="@time">@date</time>', [
+      '@time'=>$date,
+      '@date'=>$datecontent]);
+    } else {
+      $variables['created'] =t('<@elem class="timeago" title="@time">@date</@elem>', [
+      '@elem'=>$elem,
+      '@time'=>$date,
+      '@date'=>$datecontent]);
+    }  
+  }
+}
+
+
+/**
+* Implements hook_preprocess_node
+*/
+
+function timeago_preprocess_node(&$variables) {
+  $config = \Drupal::config('timeago.settings');
+   // Declare Javascript timeago variables
+  $timeago_variables=[];
+  $settings=[];
+  $strings=[];
+  $numbers=[];
+
+
+  // Assign the values of timeago variables  
+  $settings['refreshMillis']=$config->get("timeago_js_refresh_millis");
+  $settings['allowPast']=$config->get("timeago_js_allow_past");
+  $settings['allowFuture']=$config->get("timeago_js_allow_future");
+  $settings['localeTitle']=$config->get("timeago_js_locale_title");
+  $settings['cutoff']=$config->get("timeago_cutoff");
+  $strings['prefixAgo']=$config->get("timeago_js_strings_prefix_ago");
+  $strings['prefixFromNow']=$config->get("timeago_js_strings_prefix_from_now");
+  $strings['suffixAgo']=$config->get("timeago_js_strings_suffix_ago");
+  $strings['suffixFromNow']=$config->get("timeago_js_strings_suffix_from_now");
+  $strings['inPast']=$config->get("timeago_js_strings_inpast");
+  $strings['seconds']=$config->get("timeago_js_strings_seconds");
+  $strings['minute']=$config->get("timeago_js_strings_minute");
+  $strings['minutes']=$config->get("timeago_js_strings_minutes");
+  $strings['hour']=$config->get("timeago_js_strings_hour");
+  $strings['hours']=$config->get("timeago_js_strings_hours");
+  $strings['day']=$config->get("timeago_js_strings_day");
+  $strings['days']=$config->get("timeago_js_strings_days");
+  $strings['month']=$config->get("timeago_js_strings_month");
+  $strings['months']=$config->get("timeago_js_strings_months");
+  $strings['year']=$config->get("timeago_js_strings_year");
+  $strings['years']=$config->get("timeago_js_strings_years");
+  $strings['wordSeparator']=$config->get("timeago_word_separator");
+  $strings['numbers']=$numbers;
+  $settings['strings']=$strings;
+  $timeago_variables['settings']=$settings;
+  $variables['#attached']['library'][] = 'timeago/timeago-js';
+  $variables['#attached']['library'][] = 'timeago/timeagojs';
+  $variables['#attached']['drupalSettings']['timeago_variables'] = $timeago_variables;
+
+  //changes node Time configuration
+  $d = $variables['node']->getCreatedTime();
+  $date = date("Y-m-d h:i:s A", $d);
+  $datecontent = \Drupal::service('date.formatter')->formatInterval(REQUEST_TIME - $d);
+  $elem=$config->get('timeago_elem');
+  if($config->get('timeago_comment')){
+    if ($elem == 'time') {
+    $variables['date'] =t('<time class="timeago" datetime="@time">@date</time>', [
+      '@time'=>$date,
+      '@date'=>$datecontent]);
+    } else {
+      $variables['date'] =t('<@elem class="timeago" title="@time">@date</@elem>', [
+      '@elem'=>$elem,
+      '@time'=>$date,
+      '@date'=>$datecontent]);
+    } 
+  } 
+ }
+
+ /**
+ * Implements hook_library_info_build().
+ */
+function timeago_library_info_build() {
+  $libraries = [];
+  $timeago_path = DRUPAL_ROOT . '/libraries/timeago/jquery.timeago.js';
+  if (\Drupal::moduleHandler()->moduleExists('libraries')) {
+    $timeago_path = libraries_get_path('timeago') . '/jquery.timeago.js';
+  }
+  // initialize The timeagojs library
+  if ($timeago_found = file_exists($timeago_path)) {
+    $libraries['timeagojs'] = [
+      'title' => 'Timeago',
+      'website' => 'http://timeago.yarp.com',
+      'version' => 'v1.6.3',
+      'license' => [
+        'name' => 'MIT',
+        'url' => 'http://www.opensource.org/licenses/mit-license.php',
+        'gpl-compatible' => TRUE,
+      ],
+      'js' => [
+        $timeago_path => [],
+      ],
+    ];
+  }
+  else{
+    drupal_set_message("TimeAgo requires the jquery.timeago.js library.
+        Download it (https://timeago.yarp.com) and place it in the
+        libraries folder (/libraries/timeago)", $type = 'warning');
+  }
+  return $libraries;
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function timeago_library_info_alter(&$libraries, $extension) {
+  if ($extension == 'timeago' && \Drupal::moduleHandler()->moduleExists('libraries')) {
+    $libraries['timeagojs']['js'] = ['/' . libraries_get_path('timeago') . '/jquery.timeago.js' => []];
+  }
+}
+?>
